@@ -7,54 +7,53 @@ export default function CartScreen() {
   const { cart, updateQuantity, clearCart } = useCart();
   const router = useRouter();
 
-  const [modalVisible, setModalVisible] = React.useState(false); // Controle do modal para exclusão
-  const [selectedItem, setSelectedItem] = React.useState(null); // Item selecionado para remoção
-  const [checkoutModalVisible, setCheckoutModalVisible] = React.useState(false); // Controle do modal para finalização de compra
+  const [modalVisible, setModalVisible] = React.useState(false); 
+  const [selectedItem, setSelectedItem] = React.useState(null); 
+  const [checkoutModalVisible, setCheckoutModalVisible] = React.useState(false); 
 
   const total = cart.reduce((acc, item) => acc + item.quantidade * Number(item.preco), 0);
 
-  // Diminui a quantidade do item ou exibe o modal para confirmar exclusão
+
   const handleDecreaseQuantity = (id, quantidade) => {
     if (quantidade === 1) {
-      setSelectedItem(id); // Define o item selecionado
-      setModalVisible(true); // Exibe o modal de exclusão
+      setSelectedItem(id); 
+      setModalVisible(true);
     } else {
       updateQuantity(id, quantidade - 1);
     }
   };
 
-  // Aumenta a quantidade do item
+
   const handleIncreaseQuantity = (id, quantidade) => {
     updateQuantity(id, quantidade + 1);
   };
 
-  // Remove o item do carrinho
+
   const confirmRemoveItem = () => {
     updateQuantity(selectedItem, 0);
-    setModalVisible(false); // Fecha o modal de exclusão
-    setSelectedItem(null); // Reseta o item selecionado
+    setModalVisible(false); 
+    setSelectedItem(null); 
   };
 
-  // Cancela a exclusão do item
+
   const cancelRemoveItem = () => {
-    setModalVisible(false); // Fecha o modal de exclusão
-    setSelectedItem(null); // Reseta o item selecionado
+    setModalVisible(false); 
+    setSelectedItem(null); 
   };
 
-  // Abre o modal de finalização de compra
   const handleCheckout = () => {
     if (cart.length === 0) {
       setCheckoutModalVisible(false);
       return;
     }
-    setCheckoutModalVisible(true); // Exibe o modal de finalização
+    setCheckoutModalVisible(true); 
   };
 
-  // Finaliza a compra
+
   const confirmCheckout = () => {
-    clearCart(); // Limpa o carrinho
-    setCheckoutModalVisible(false); // Fecha o modal
-    router.push('/loja'); // Redireciona para o mercado
+    clearCart(); 
+    setCheckoutModalVisible(false); 
+    router.push('/loja'); 
   };
 
   return (
@@ -88,7 +87,7 @@ export default function CartScreen() {
       <Text style={styles.totalText}>Total: R$ {total.toFixed(2)}</Text>
       <Button title="Finalizar Compra" onPress={handleCheckout} />
 
-      {/* Modal para Exclusão de Item */}
+      
       <Modal
         transparent={true}
         animationType="slide"
@@ -116,7 +115,7 @@ export default function CartScreen() {
         </View>
       </Modal>
 
-      {/* Modal para Finalização de Compra */}
+      
       <Modal
         transparent={true}
         animationType="slide"

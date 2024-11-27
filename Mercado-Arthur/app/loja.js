@@ -11,7 +11,7 @@ export default function MarketScreen() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('https://expert-funicular-xqgr9qqj59xfr64-3000.app.github.dev/produtos');
+      const response = await fetch('https://mercado-back-end.vercel.app/produtos');
       const data = await response.json();
       setProducts(data);
     } catch (error) {
